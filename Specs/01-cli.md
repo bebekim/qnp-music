@@ -1,4 +1,4 @@
-# qnpmusic Python CLI Spec
+# imj Python CLI Spec
 
 Status: v0 complete.
 
@@ -17,7 +17,7 @@ mpv --no-video --loop-playlist=inf --playlist=/Users/marcus.kim/Music/playlist.t
 
 ## Confirmed v0 Product Intent
 
-- The CLI command name is `qnpmusic`.
+- The CLI command name is `imj`.
 - User can add music URLs from the CLI.
 - User can create named playlists.
 - SQLite is part of v0 and is the source of truth.
@@ -36,9 +36,9 @@ mpv --no-video --loop-playlist=inf --playlist=/Users/marcus.kim/Music/playlist.t
 Use pgcli as a Python CLI implementation template, not as a feature template.
 
 - Use a real package layout, not only a top-level `main.py`.
-  - Target shape: `qnpmusic/main.py`, `qnpmusic/__main__.py`, `tests/`.
+  - Target shape: `imj/main.py`, `imj/__main__.py`, `tests/`.
 - Use a console script entry point in `pyproject.toml`.
-  - `qnpmusic = "qnpmusic.main:cli"`
+  - `imj = "imj.main:cli"`
 - Use `click` for command parsing.
 - Add dependencies through `uv` and keep them in `pyproject.toml`.
 - Keep command behavior testable with `click.testing.CliRunner`.
@@ -49,14 +49,14 @@ Use pgcli as a Python CLI implementation template, not as a feature template.
 ## v0 CLI Surface
 
 ```bash
-qnpmusic setup [--music-dir PATH]
-qnpmusic create NAME
-qnpmusic add URL [--playlist NAME]
-qnpmusic import-staging
-qnpmusic playlists
-qnpmusic show NAME
-qnpmusic export NAME [--output PATH]
-qnpmusic play NAME
+imj setup [--music-dir PATH]
+imj create NAME
+imj add URL [--playlist NAME]
+imj import-staging
+imj playlists
+imj show NAME
+imj export NAME [--output PATH]
+imj play NAME
 ```
 
 Default playlist behavior:
@@ -72,20 +72,20 @@ Default playlist behavior:
 
 Config should follow pgcli's XDG-style pattern:
 
-- Config directory: `~/.config/qnpmusic/`, or `$XDG_CONFIG_HOME/qnpmusic/` when set.
+- Config directory: `~/.config/imj/`, or `$XDG_CONFIG_HOME/imj/` when set.
 - Config file stores at least:
   - music directory
   - default playlist name
 
 Data should live under the configured music directory.
 
-- Default music directory: `~/Music/qnpmusic`.
+- Default music directory: `~/Music/imj`.
 - The parent location is `~/Music` for now.
 - The directory can be changed later through setup/config.
 - `playlist.txt` is only the current manual example, not a fixed required path.
-- SQLite database path: `~/Music/qnpmusic/qnpmusic.sqlite`.
-- Staging file path: `~/Music/qnpmusic/staging.tsv`.
-- Exported playlist files live under `~/Music/qnpmusic/playlists/` and are overwritten in place.
+- SQLite database path: `~/Music/imj/imj.sqlite`.
+- Staging file path: `~/Music/imj/staging.tsv`.
+- Exported playlist files live under `~/Music/imj/playlists/` and are overwritten in place.
 
 ## Staging File
 
@@ -156,7 +156,7 @@ Notes:
 
 ## Export And Playback
 
-`qnpmusic play NAME` is a wrapper around `mpv`.
+`imj play NAME` is a wrapper around `mpv`.
 
 Playback means the CLI starts `mpv` to play either one URL for validation or a generated playlist for normal listening.
 
@@ -192,20 +192,20 @@ mpv --no-video --length=10 URL
 ## Explicitly Out Of Scope For v0
 
 - LLM enrichment.
-- Searching by inferred artist or theme, such as `qnpmusic play radiohead`.
+- Searching by inferred artist or theme, such as `imj play radiohead`.
 - Automatic `mpv` installation.
 - Cross-platform package-manager support.
 
 ## v0 Acceptance Checks
 
-- `qnpmusic --help` shows available commands.
-- `qnpmusic setup --music-dir PATH` writes config without touching real user files in tests.
-- `qnpmusic create study` creates a playlist row.
-- `qnpmusic add URL --playlist study` writes a newest-first staging entry.
-- `qnpmusic import-staging` validates staged entries with `mpv`.
-- `qnpmusic import-staging` imports only non-duplicate working URLs into SQLite.
-- `qnpmusic import-staging` flushes imported entries from staging and leaves failed entries in place.
-- `qnpmusic show study` prints URLs and any available titles.
-- `qnpmusic export study` writes an `mpv` playlist file.
-- `qnpmusic play study` invokes `mpv` with no video and infinite playlist loop.
+- `imj --help` shows available commands.
+- `imj setup --music-dir PATH` writes config without touching real user files in tests.
+- `imj create study` creates a playlist row.
+- `imj add URL --playlist study` writes a newest-first staging entry.
+- `imj import-staging` validates staged entries with `mpv`.
+- `imj import-staging` imports only non-duplicate working URLs into SQLite.
+- `imj import-staging` flushes imported entries from staging and leaves failed entries in place.
+- `imj show study` prints URLs and any available titles.
+- `imj export study` writes an `mpv` playlist file.
+- `imj play study` invokes `mpv` with no video and infinite playlist loop.
 - Tests use temporary config/data directories.

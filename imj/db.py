@@ -1,7 +1,7 @@
 import sqlite3
 import pathlib
 
-from qnpmusic import config
+from imj import config
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS songs (

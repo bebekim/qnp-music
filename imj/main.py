@@ -2,12 +2,12 @@ import pathlib
 
 import click
 
-from qnpmusic import config, db, staging, player
+from imj import config, db, staging, player
 
 
 @click.group()
 def cli():
-    """qnpmusic - local music URL playlist manager with mpv playback."""
+    """imj - local music URL playlist manager with mpv playback (interviews, music, jokes)."""
 
 
 @cli.command()

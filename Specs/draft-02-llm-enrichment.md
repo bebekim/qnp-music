@@ -1,4 +1,4 @@
-# qnpmusic LLM Enrichment Spec
+# imj LLM Enrichment Spec
 
 Status: v1 draft, out of scope for v0.
 
@@ -16,8 +16,8 @@ LLM enrichment adds metadata to songs already stored in SQLite. It should not be
 ## Candidate CLI
 
 ```bash
-qnpmusic enrich PLAYLIST
-qnpmusic enrich-url URL
+imj enrich PLAYLIST
+imj enrich-url URL
 ```
 
 ## Candidate Fields
@@ -36,4 +36,4 @@ qnpmusic enrich-url URL
 - What should happen when enrichment fails for one URL?
 - Should partial enrichment results be saved?
 - Should enriched titles be shortened for display, and if so by what rule?
-- Should v1 include inferred playback, such as `qnpmusic play radiohead`, where the LLM builds a temporary playlist from existing songs?
+- Should v1 include inferred playback, such as `imj play radiohead`, where the LLM builds a temporary playlist from existing songs?

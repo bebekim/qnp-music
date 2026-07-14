@@ -1,7 +1,7 @@
 [project]
-name = "qnpmusic"
+name = "imj"
 version = "0.0.1"
-description = "Local music URL playlist manager with mpv playback"
+description = "Local music URL playlist manager with mpv playback (interviews, music, jokes)"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
@@ -14,7 +14,7 @@ dev = [
 ]
 
 [project.scripts]
-qnpmusic = "qnpmusic.main:cli"
+imj = "imj.main:cli"
 
 [build-system]
 requires = ["hatchling"]

@@ -1,4 +1,4 @@
-from qnpmusic import config, staging
+from imj import config, staging
 
 
 def test_prepend_entry_newest_first(isolated_env):

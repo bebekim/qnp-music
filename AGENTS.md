@@ -1,7 +1,6 @@
 # Project Instructions for AI Agents
 
-This workspace uses Lyo as the learning and session ledger. Do not use `bd` or
-beads for discovery, tracking, claiming, updates, closure, or sync.
+This workspace uses Lyo as the learning and session ledger. 
 
 ## Learning Ledger
 

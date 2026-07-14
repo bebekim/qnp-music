@@ -1,6 +1,6 @@
-# qnpmusic
+# imj
 
-A local CLI for managing music URLs and playing them with `mpv`.
+A local CLI for managing music, interviews, and jokes URLs and playing them with `mpv`. Short for interviews, music, jokes.
 
 ## Requirements
 
@@ -14,42 +14,42 @@ A local CLI for managing music URLs and playing them with `mpv`.
 uv tool install ~/repositories/individual/qnp-music
 ```
 
-This puts the `qnpmusic` command on your PATH.
+This puts the `imj` command on your PATH.
 
 ## Setup
 
 ```bash
-qnpmusic setup --music-dir ~/Music/qnpmusic
+imj setup --music-dir ~/Music/imj
 ```
 
-Creates config at `~/.config/qnpmusic/config.json` and uses `~/Music/qnpmusic` for data (SQLite DB, staging file, exported playlists).
+Creates config at `~/.config/imj/config.json` and uses `~/Music/imj` for data (SQLite DB, staging file, exported playlists).
 
 ## Usage
 
 ```bash
 # Create a playlist
-qnpmusic create "Late Night Jazz"
+imj create "Late Night Jazz"
 
 # Add a URL to staging (quotes needed for & in URLs)
-qnpmusic add 'https://www.youtube.com/watch?v=...' --playlist "Late Night Jazz"
+imj add 'https://www.youtube.com/watch?v=...' --playlist "Late Night Jazz"
 
 # Omit --playlist to stage into the default playlist
-qnpmusic add 'https://www.youtube.com/watch?v=...'
+imj add 'https://www.youtube.com/watch?v=...'
 
 # Validate staged URLs with mpv and import working ones into SQLite
-qnpmusic import-staging
+imj import-staging
 
 # List all playlists
-qnpmusic playlists
+imj playlists
 
 # Show songs in a playlist
-qnpmusic show "Late Night Jazz"
+imj show "Late Night Jazz"
 
 # Export a playlist to an mpv playlist file
-qnpmusic export study
+imj export study
 
 # Play a playlist (foreground, blocks until you quit mpv)
-qnpmusic play study
+imj play study
 ```
 
 ## How it works
@@ -62,10 +62,10 @@ qnpmusic play study
 
 | Path | Purpose |
 |---|---|
-| `~/.config/qnpmusic/config.json` | Config (music dir, default playlist) |
-| `~/Music/qnpmusic/qnpmusic.sqlite` | SQLite database (source of truth) |
-| `~/Music/qnpmusic/staging.tsv` | Temporary staging file (URL + playlist, tab-separated) |
-| `~/Music/qnpmusic/playlists/` | Exported mpv playlist files |
+| `~/.config/imj/config.json` | Config (music dir, default playlist) |
+| `~/Music/imj/imj.sqlite` | SQLite database (source of truth) |
+| `~/Music/imj/staging.tsv` | Temporary staging file (URL + playlist, tab-separated) |
+| `~/Music/imj/playlists/` | Exported mpv playlist files |
 
 ## Development
 

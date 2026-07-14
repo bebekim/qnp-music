@@ -29,7 +29,7 @@ Useful files present:
 - `Specs/01-cli.md`: implementation-ready v0 CLI spec with acceptance checks.
 - `Specs/draft-02-llm-enrichment.md`: correctly marked draft/out-of-scope.
 - `pyproject.toml`: declares package metadata, `click`, `pytest`, and
-  `qnpmusic` console script.
+  `imj` console script.
 
 Expected files missing:
 
@@ -106,8 +106,8 @@ guess.
 ## Verifier Evidence
 
 - `uv sync`: passed.
-- `uv run qnpmusic --help`: passed.
-- `uv build --out-dir /tmp/qnpmusic-build`: passed.
+- `uv run imj --help`: passed.
+- `uv build --out-dir /tmp/imj-build`: passed.
 - `git diff --check`: passed before this report update.
 - `uv run pytest`: failed, 7 failed and 31 passed.
 
@@ -144,8 +144,8 @@ The common harness concern is `mpv` availability. Current code checks
 
 - Add lint once a formatter/linter is chosen, for example `uv run ruff check .`.
 - Add typecheck only if the project commits to annotations, for example
-  `uv run mypy qnpmusic`.
+  `uv run mypy imj`.
 - Add build verification, for example `uv build`.
-- Add a CLI smoke check such as `uv run qnpmusic --help`.
+- Add a CLI smoke check such as `uv run imj --help`.
 - Mirror the final chosen gates in `.sandcastle/sandbox.json` after pytest is
   stable in the sandbox.

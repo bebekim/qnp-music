@@ -1,6 +1,6 @@
 import pathlib
 
-from qnpmusic import config
+from imj import config
 
 
 def read_entries(path: pathlib.Path) -> list[tuple[str, str]]:

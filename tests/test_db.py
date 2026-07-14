@@ -1,4 +1,4 @@
-from qnpmusic import config, db
+from imj import config, db
 
 
 def test_schema_created(isolated_env):

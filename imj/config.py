@@ -2,7 +2,7 @@ import os
 import json
 import pathlib
 
-APP_NAME = "qnpmusic"
+APP_NAME = "imj"
 DEFAULT_PLAYLIST = "default"
 
 
@@ -40,7 +40,7 @@ def music_dir(cfg: dict | None = None) -> pathlib.Path:
 
 
 def db_path(cfg: dict | None = None) -> pathlib.Path:
-    return music_dir(cfg) / "qnpmusic.sqlite"
+    return music_dir(cfg) / "imj.sqlite"
 
 
 def staging_path(cfg: dict | None = None) -> pathlib.Path:

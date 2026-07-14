@@ -30,7 +30,7 @@ Result: `38 passed`.
 | Spec | State | Why |
 | --- | --- | --- |
 | `Specs/README.md` | done | Routing doc only. It says active specs are non-draft Markdown files after preflight, and matches `AGENT_LOOP.md`. |
-| `Specs/01-cli.md` | done | v0 CLI behavior is implemented in `qnpmusic/`, acceptance checks exist in `tests/`, and `uv run pytest` passes. |
+| `Specs/01-cli.md` | done | v0 CLI behavior is implemented in `imj/`, acceptance checks exist in `tests/`, and `uv run pytest` passes. |
 | `Specs/draft-02-llm-enrichment.md` | draft | The filename starts with `draft-`, the content says v1 draft/out of scope for v0, and it has unresolved provider, credential, behavior, and failure-mode questions. |
 
 ## Dependency Graph
@@ -56,7 +56,7 @@ For `Specs/draft-02-llm-enrichment.md`:
 4. When one URL fails enrichment, should the command continue with the rest of the playlist?
 5. Should partial enrichment results be saved when some fields are missing?
 6. What exact acceptance checks should prove `enrich` and `enrich-url` work without live external credentials?
-7. Should v1 include inferred playback such as `qnpmusic play radiohead`, or remain metadata-only?
+7. Should v1 include inferred playback such as `imj play radiohead`, or remain metadata-only?
 
 ## Missing Inputs And Guardrails
 
@@ -68,7 +68,7 @@ For `Specs/draft-02-llm-enrichment.md`:
 
 ## Recommended Doc Updates
 
-- Add a short top-level `README.md` with the supported local commands: `uv sync`, `uv run pytest`, and basic `qnpmusic` usage.
+- Add a short top-level `README.md` with the supported local commands: `uv sync`, `uv run pytest`, and basic `imj` usage.
 - In the LLM enrichment spec, define the credential source, provider/model, response fixture format, database field changes, and offline tests before removing `draft-`.
 - If enrichment needs new columns, add a migration note or schema-update acceptance check to the spec.
 
