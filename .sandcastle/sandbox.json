@@ -1,0 +1,8 @@
+{
+  "type": "generic",
+  "agentImage": "sandcastle:local",
+  "setupCommands": ["uv sync"],
+  "checkCommands": ["uv run pytest"],
+  "serviceNotes": []
+}
+
