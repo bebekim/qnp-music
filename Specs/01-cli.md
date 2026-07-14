@@ -1,6 +1,8 @@
 # qnpmusic Python CLI Spec
 
-Status: v0 implementation-ready.
+Status: v0 complete.
+
+Verified: `uv sync` and `uv run pytest` pass on 2026-07-14.
 
 ## Source Inputs
 
