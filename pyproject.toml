@@ -1,7 +1,21 @@
 [project]
-name = "qnpyt"
+name = "qnpmusic"
 version = "0.1.0"
-description = "Add your description here"
+description = "Local music URL playlist manager with mpv playback"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "click>=8.4.2",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]
+
+[project.scripts]
+qnpmusic = "qnpmusic.main:cli"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
