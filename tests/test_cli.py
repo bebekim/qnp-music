@@ -57,7 +57,8 @@ def test_import_staging_validates_and_imports(isolated_env):
     from qnpmusic import staging
     staging.prepend_entry(config.staging_path(cfg), "https://good", "study")
     staging.prepend_entry(config.staging_path(cfg), "https://bad", "study")
-    with patch("qnpmusic.player.validate_url", side_effect=lambda u, **kw: u == "https://good"):
+    with patch("qnpmusic.player.mpv_available", return_value=True), \
+         patch("qnpmusic.player.validate_url", side_effect=lambda u, **kw: u == "https://good"):
         result = runner.invoke(cli, ["import-staging"])
     assert result.exit_code == 0
     conn = db.connect(cfg)
@@ -76,7 +77,8 @@ def test_import_staging_flushes_imported_leaves_failed(isolated_env):
     from qnpmusic import staging
     staging.prepend_entry(config.staging_path(cfg), "https://good", "study")
     staging.prepend_entry(config.staging_path(cfg), "https://bad", "study")
-    with patch("qnpmusic.player.validate_url", side_effect=lambda u, **kw: u == "https://good"):
+    with patch("qnpmusic.player.mpv_available", return_value=True), \
+         patch("qnpmusic.player.validate_url", side_effect=lambda u, **kw: u == "https://good"):
         runner.invoke(cli, ["import-staging"])
     remaining = staging.read_entries(config.staging_path(cfg))
     assert ("https://bad", "study") in remaining
@@ -90,10 +92,12 @@ def test_import_staging_skips_duplicates(isolated_env):
     cfg = config.load_config()
     from qnpmusic import staging
     staging.prepend_entry(config.staging_path(cfg), "https://dup", "study")
-    with patch("qnpmusic.player.validate_url", return_value=True):
+    with patch("qnpmusic.player.mpv_available", return_value=True), \
+         patch("qnpmusic.player.validate_url", return_value=True):
         runner.invoke(cli, ["import-staging"])
     staging.prepend_entry(config.staging_path(cfg), "https://dup", "study")
-    with patch("qnpmusic.player.validate_url", return_value=True):
+    with patch("qnpmusic.player.mpv_available", return_value=True), \
+         patch("qnpmusic.player.validate_url", return_value=True):
         result = runner.invoke(cli, ["import-staging"])
     assert "SKIP" in result.output
     conn = db.connect(cfg)
@@ -104,7 +108,8 @@ def test_import_staging_skips_duplicates(isolated_env):
 def test_import_staging_empty(isolated_env):
     runner = CliRunner()
     runner.invoke(cli, ["setup", "--music-dir", str(isolated_env / "music" / "qnpmusic")])
-    result = runner.invoke(cli, ["import-staging"])
+    with patch("qnpmusic.player.mpv_available", return_value=True):
+        result = runner.invoke(cli, ["import-staging"])
     assert result.exit_code == 0
     assert "No staged entries" in result.output
 
@@ -192,7 +197,8 @@ def test_play_command_invokes_mpv(isolated_env):
     db.add_song_to_playlist(conn, "https://x/a", "study")
     conn.commit()
     conn.close()
-    with patch("qnpmusic.player.play_playlist", return_value=0) as mock_play:
+    with patch("qnpmusic.player.mpv_available", return_value=True), \
+         patch("qnpmusic.player.play_playlist", return_value=0) as mock_play:
         result = runner.invoke(cli, ["play", "study"])
     assert result.exit_code == 0
     mock_play.assert_called_once()
@@ -203,5 +209,6 @@ def test_play_command_invokes_mpv(isolated_env):
 def test_play_empty_playlist(isolated_env):
     runner = CliRunner()
     runner.invoke(cli, ["setup", "--music-dir", str(isolated_env / "music" / "qnpmusic")])
-    result = runner.invoke(cli, ["play", "nope"])
+    with patch("qnpmusic.player.mpv_available", return_value=True):
+        result = runner.invoke(cli, ["play", "nope"])
     assert "empty or does not exist" in result.output

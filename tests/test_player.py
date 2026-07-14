@@ -5,7 +5,8 @@ from qnpmusic import player
 
 
 def test_validate_url_success():
-    with patch("qnpmusic.player.subprocess.run") as mock_run:
+    with patch("qnpmusic.player.mpv_available", return_value=True), \
+         patch("qnpmusic.player.subprocess.run") as mock_run:
         mock_run.return_value = subprocess.CompletedProcess(
             args=[], returncode=0
         )
@@ -13,7 +14,8 @@ def test_validate_url_success():
 
 
 def test_validate_url_failure():
-    with patch("qnpmusic.player.subprocess.run") as mock_run:
+    with patch("qnpmusic.player.mpv_available", return_value=True), \
+         patch("qnpmusic.player.subprocess.run") as mock_run:
         mock_run.return_value = subprocess.CompletedProcess(
             args=[], returncode=1
         )
@@ -21,7 +23,8 @@ def test_validate_url_failure():
 
 
 def test_validate_url_timeout():
-    with patch(
+    with patch("qnpmusic.player.mpv_available", return_value=True), \
+         patch(
         "qnpmusic.player.subprocess.run",
         side_effect=subprocess.TimeoutExpired(cmd="mpv", timeout=20),
     ):
